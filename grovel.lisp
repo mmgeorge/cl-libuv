@@ -36,6 +36,8 @@
   (ctype uv-uid-t "uid_t")
   (ctype uv-gid-t "gid_t"))
 
+(ctype sa-family-t "sa_family_t")
+(ctype socklen-t "socklen_t")
 ;; -----------------------------------------------------------------------------
 ;; socket struct nastiness
 ;; -----------------------------------------------------------------------------
@@ -44,14 +46,19 @@
 (cstruct in6-addr "struct in6_addr"
   (s6-addr "s6_addr" :type :unsigned-char :count 16))
 
+(cstruct sockaddr-storage "struct sockaddr_storage"
+  (ss-family "ss_family" :type sa-family-t))
+
 (cstruct sockaddr "struct sockaddr"
   (sa-family "sa_family" :type :unsigned-short)
   (sa-data "sa_data" :type :char :count 14))
+
 (cstruct sockaddr-in "struct sockaddr_in"
   (sin-family "sin_family" :type :short)
   (sin-port "sin_port" :type :unsigned-short)
   (sin-addr "sin_addr" :type in-addr)
   (sin-zero "sin_zero" :type :char :count 8))
+
 (cstruct sockaddr-in6 "struct sockaddr_in6"
   (sin6-family "sin6_family" :type :uint16)
   (sin6-port "sin6_port" :type :uint16)
